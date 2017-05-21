@@ -2,16 +2,16 @@
 /*! 
     @file     Adafruit_VCNL4010.h
     @author   K. Townsend (Adafruit Industries)
-	@license  BSD (see license.txt)
-	
-	This is a library for the Adafruit VCNL4010 Temp Sensor breakout board
-	----> http://www.adafruit.com/products/1782
-	
-	Adafruit invests time and resources providing this open source code, 
-	please support Adafruit and open-source hardware by purchasing 
-	products from Adafruit!
+   @license  BSD (see license.txt)
+   
+   This is a library for the Adafruit VCNL4010 Temp Sensor breakout board
+   ----> http://www.adafruit.com/products/1782
+   
+   Adafruit invests time and resources providing this open source code, 
+   please support Adafruit and open-source hardware by purchasing 
+   products from Adafruit!
 
-	@section  HISTORY
+   @section  HISTORY
 
     v1.0  - First release
 */
@@ -23,7 +23,12 @@
  #include "WProgram.h"
 #endif
 
-#include <Wire.h>
+#ifdef __AVR_ATtiny85__
+ #include "TinyWireM.h"
+ #define Wire TinyWireM
+#else
+ #include <Wire.h>
+#endif
 
 // the i2c address
 #define VCNL4010_I2CADDR_DEFAULT 0x13
@@ -38,6 +43,8 @@
 #define VCNL4010_PROXIMITYDATA 0x87
 #define VCNL4010_INTCONTROL 0x89
 #define VCNL4010_PROXINITYADJUST 0x8A
+#define VCNL4010_HIGHTHRESHOLD_HB 0x8C
+#define VCNL4010_HIGHTHRESHOLD_LB 0x8D
 #define VCNL4010_INTSTAT 0x8E
 #define VCNL4010_MODTIMING 0x8F
 
@@ -50,7 +57,7 @@ typedef enum
   } vcnl4010_freq;
 
 #define VCNL4010_MEASUREAMBIENT 0x10
-#define VCNL4010_MEASUREPROXIMITY 0x08
+#define VCNL4010_MEASUREPROXIMITY 0x03 //0x08
 #define VCNL4010_AMBIENTREADY 0x40
 #define VCNL4010_PROXIMITYREADY 0x20
   
