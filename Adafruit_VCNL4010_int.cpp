@@ -40,7 +40,7 @@ boolean Adafruit_VCNL4010::begin(uint8_t addr) {
   setFrequency(VCNL4010_390K625);
 
   //write8(VCNL4010_INTCONTROL, 0x08);
-  write8(VCNL4010_PROXRATE, 0x00); //1.95 measurements/s
+  write8(VCNL4010_PROXRATE, 0x7); //250 measurements/s
   write8(VCNL4010_AMBIENTPARAMETER, 0x33); //2 conversions, auto offset on, 2 samples/s, continous conversion mode
   write8(VCNL4010_INTCONTROL, 0x42); //thresholds for proximity measurements, interrupt generation when threshold exceeded, no interrupt for ambient & proximity data ready, 4 counts
   write8(VCNL4010_HIGHTHRESHOLD_HB, 0x09); // threshold = 2400dez, 2400/256=9,375 --> 9 is the High byte. 9,375-9=0,375 --> 0,375*256=96 --> 96decimal to hex = 60 --> low byte = 60
